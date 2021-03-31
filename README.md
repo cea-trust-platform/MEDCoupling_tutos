@@ -1,14 +1,26 @@
-# MEDCoupling_tutos
+# **MEDCoupling_tutos**
 
-Jupyter-lab python tutorials and scripts illustrating the use of the MEDCoupling library. 
+This git repository contains python tutorials and scripts illustrating the use of the MEDCoupling library.
 
-## MEDCoupling environement
+You can find in the "tutorials" folder some tutorials and explanations for several topics. Jupyter-lab should be used for ipynb extension files. 
 
-Sourcing the MEDCoupling environement is required in order to use the scripts !
+## **MEDCoupling environement**
 
-For a TRUST user
-> source $TRUST_MEDCOUPLING_ROOT/env.sh
+Working in a MEDCoupling environement is required. For that, you should do the following 
 
-For a Salome user
-> salome context
+- For a TRUST user : ***source env_TRUST.sh && source $TRUST_MEDCOUPLING_ROOT/env.sh***
+
+- For a Salome user : ***salome context***
+
+## **Steps to follow**
+
+- Activate the MEDCoupling environement
+
+- cd tutorials
+
+- Launch jupyter-lab 
+
+- Enjoy MEDCoupling !
+
+
  
