@@ -8,7 +8,7 @@ You can find in the "tutorials" folder some tutorials and explanations for sever
 
 Working in a MEDCoupling environement is required. For that, you should do the following 
 
-- For a TRUST user : ***source env_TRUST.sh && source $TRUST_MEDCOUPLING_ROOT/env.sh***
+- For a TRUST user : ***source env_for_python.sh***
 
 - For a Salome user : ***salome context***
 
@@ -18,9 +18,6 @@ Working in a MEDCoupling environement is required. For that, you should do the f
 
 - cd tutorials
 
-- Launch jupyter-lab 
+- Launch jupyter-notebook
 
 - Enjoy MEDCoupling !
-
-
- 
