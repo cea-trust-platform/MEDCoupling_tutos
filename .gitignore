@@ -2,4 +2,5 @@
 .virtual_documents/
 .vscode/
 .env
+.ruff_cache/
 **/.env
