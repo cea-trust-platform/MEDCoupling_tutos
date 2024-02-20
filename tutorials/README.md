@@ -1,4 +1,4 @@
-# Introduction 
+# Introduction
 
 This repository contains python tutorials and scripts illustrating the use of the `MEDCoupling` library.
 The tutorials are python Notebooks (`.ipynb` extension).  They cover several topics, from simple use of fundamental types, such as the `DataArray`, up to complete studies, such as the `RJH` tutorial.
@@ -9,8 +9,8 @@ Additional resource is [available online](https://docs.salome-platform.org/lates
 
 The `LD_LIBRARY_PATH` and the `PYTHONPATH` environment variables must be set correctly, in order to use the `MEDCoupling` library.
 Assuming that `MEDCoupling` has been installed at `<MC_INSTALL>/`:
-- `LD_LIBRARY_PATH=...:<MC_INSTALL>/lib` 
-- `PYTHONPATH=...:<MC_INSTALL>/lib/<python?.??>/site-packages` 
+- `LD_LIBRARY_PATH=...:<MC_INSTALL>/lib`
+- `PYTHONPATH=...:<MC_INSTALL>/lib/<python?.??>/site-packages`
 
 where `<python?.??>` depends on your local python interpreter version. For instance, it may be `python3.10`.
 
