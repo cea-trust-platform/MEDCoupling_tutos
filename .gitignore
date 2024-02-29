@@ -5,3 +5,5 @@
 .ruff_cache/
 **/.env
 *.vtu
+*.med
+*.data
