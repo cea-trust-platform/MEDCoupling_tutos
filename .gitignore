@@ -4,3 +4,4 @@
 .env
 .ruff_cache/
 **/.env
+*.vtu
