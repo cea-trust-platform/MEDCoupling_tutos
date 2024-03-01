@@ -8,7 +8,7 @@ several topics. Jupyter-lab should be used for ipynb extension files.
 
 # Set runtime environment
 
-Working in a MEDCoupling environement is required. For that, you should do the
+Working in a MEDCoupling environment is required. For that, you should do the
 following:
 
 - For a `TRUST` user:
@@ -25,8 +25,8 @@ following:
 
 - Installing other python packages:
 
-  The recommanded way to install new packages is to create a virtual
-  environnement. The downside is that it will hide all system packages by
+  The recommended way to install new packages is to create a virtual
+  environment. The downside is that it will hide all system packages by
   default. To install it run:
 
   ```bash
@@ -38,7 +38,7 @@ following:
 
   As system packages will be hidden, in some configurations (native
   medcoupling/salome), numpy and scipy need to be installed in this
-  environnement. A `requirements.txt` file is provided which lists needed
+  environment. A `requirements.txt` file is provided which lists needed
   packages:
 
   ```bash
@@ -48,7 +48,7 @@ following:
 
 # Check environnement and all notebooks
 
-To check all notebooks are running after initializing the envireonnement please run:
+To check all notebooks are running after initializing the environment please run:
 
 ```bash
 source venv/bin/activate
@@ -58,7 +58,7 @@ pytest --nbval
 
 # Run a tutorial
 
-- Activate the MEDCoupling environement
-- cd tutorials
-- Launch jupyter-notebook/jupyter-lab
+- Activate the MEDCoupling environment
+- `cd tutorials`
+- Launch `jupyter-notebook` or `jupyter-lab`
 - Enjoy MEDCoupling !
