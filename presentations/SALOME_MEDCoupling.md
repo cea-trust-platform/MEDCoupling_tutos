@@ -12,7 +12,7 @@
 - Library and code structure
 - Some practical details for the exercises
 - API changes in V8+
-- Notes for C++ developpers
+- Notes for C++ developers
 
 ## Training overview & objectives
 
@@ -90,19 +90,19 @@
 - Projection (interpolation and field projection)
 - Parallelism (DEC - Data Exchange Channel)
 - File I/O (MEDFiles)
-- MEDReader, paraview plugin to visualize MEDFiles
+- MEDReader, Paraview plugin to visualize MEDFiles
 - MED GUI (aka Fields)
 
 ### History, an ongoing effort
 
-- 1996: study about the standardisation of data exchange between EdF R&D simulation codes
+- 1996: study about the standardization of data exchange between EdF R&D simulation codes
 - 1997: first version of the data model
 - 1998-1999: first version of the MED-file library at EdF and joint work with CEA (ELAN)
 - 2001: including MED into the SALOME platform for data exchange (meshes and fields)
 - 2003: first version of MED in memory (MEDMEM): exchanging objects between processes directly in memory
 - 2010: first version of MEDCoupling
 - 2013: removing MEDMEM from SALOME 7
-- 2014: MEDCoupling/MEDLoader: engine behing the new MED reader in ParaView / PARAVIS
+- 2014: MEDCoupling/MEDLoader: engine behind the new MED reader in ParaView / PARAVIS
 
 ## BASICS
 
@@ -136,7 +136,7 @@
   - `DataArrayInt` and `DataArrayDouble` can be converted to NumPy array
     - Efficient in both ways (no copy, just ownership transfer)
   - Advantages
-    - mmap, serial/deserial with multiprocessing
+    - mmap, serialize/deserialize with multiprocessing
     - Usage with arrays of bool ( where() clauses )
     - Syntactic sugar for dimension management (translate, newaxis, …)
     - Link with SciPy for linear algebra
@@ -276,7 +276,7 @@ RefCountObject abstract class
     - Memory management philosophy: someone owns the object after its creation
     - incrRef() to take ownership of the object / decrRef() to release it
     - Template class  MCAuto is here to help
-    - Smart pointer behaviour (no Boost dependency)
+    - Smart pointer behavior (no Boost dependency)
     - No need to decrRef() if used
     - valgrind is your friend
   - Careful, some MEDCoupling functions

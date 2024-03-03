@@ -217,7 +217,7 @@ Algorithm
    Using the sequential Remapper (what we’ve seen
    before):
 3. Locate intersecting cells (BBTree)
-4. Compute pairewise contributions
+4. Compute pairwise contributions
 5. Final computation of the distributed weight matrix
 
 ### Example
