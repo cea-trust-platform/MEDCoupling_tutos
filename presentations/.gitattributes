@@ -1,0 +1,2 @@
+# command: `git lfs track 'pictures/**/*.png'`
+pictures/**/*.png filter=lfs diff=lfs merge=lfs -text
