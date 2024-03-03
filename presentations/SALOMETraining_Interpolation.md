@@ -23,7 +23,7 @@ Code coupling
     - E.g. temperature computed on nodes in code A and on elements in code B
   - And/or different spatial discretization (i.e. different meshing of the same
     geometrical domain)
-    - A cylinder meshed with hexahedrons in code A,  and with tetrahedrons in
+    - A cylinder meshed with hexahedrons in code A, and with tetrahedrons in
       code B
   - Or even worse, use different dimensions
     - A heat flux on a 2D surface for code A and a 3D source term (e.g. fuel
@@ -37,11 +37,13 @@ Code coupling
 ### Projection, Interpolation?
 
 - Normally
+
   - Interpolation: computing a function’s value at a given point inside a domain where the function’s values are known at discrete points
   - Extrapolation: computing a function’s value outside a domain, but in relationship with points where the function’s values are known: hazardous!
   - Projection: from linear algebra, expression of a function (a vector) into a new basis of a (another) vector space (often with a smaller dimension)
 
 - In MEDCoupling, we do not take sides, and hence we
+
   - Prepare the operation (given the two meshes)
   - Transfer one or several fields (but apologies, sometimes you will still see interpolate or project)
 
@@ -74,6 +76,7 @@ Code coupling
 Where are the discrete values defined?
 
 - A field can be supported by:
+
   - The nodes (or vertices) of the mesh: ON_NODES also called P1
   - The cells (or elements) of the mesh: ON_CELLS also called P0
   - By more complex reference locations:
@@ -83,6 +86,7 @@ Where are the discrete values defined?
 - Obviously the projection methods will differ according to the localization
 
 - Generally P0-P0 projection is the best supported option
+
   - Source field is defined on cells
   - Desired result: a target field expressed on cells
   - Very common case
@@ -115,10 +119,12 @@ Example of non-overlapping mesh
 - Understanding the problem of non-overlapping meshes:
 
 - Take a look at the illustration right
+
   - Mesh A in blue
   - Mesh B in green
 
 - For a projection from B to A, should:
+
   - the full volume (here surface) of the cell from mesh A be taken into account?
     - Knowing that only part of it coincides with the two cells in mesh B
   - or only the volume covering both mesh A and mesh B?
@@ -178,18 +184,17 @@ Parallelism
 Parallel Interpolation
 Code name: DEC!
 
-
 Many codes today runs in « parallel »
 Here we cover inter-process exchange, MPI-like
-
 
 Still a need to exchange information between two parallel codes
 Simple transfer of information
 Or more complex projection as seen before
 
-
 Solution: Data Exchange Channels (DEC)
-ParaMEDMEM - OVerview
+
+### ParaMEDMEM - Overview
+
 Where is the DEC used?
 
 DEC – Step by step
@@ -205,19 +210,42 @@ InterpKernelDEC: code A and B run on separate procs
 OverlapDEC: code A and B share all the procs
 
 Algorithm
+
 1. Computation of bounding box per proc
 2. Exchanging the 2D sub-meshes potentially
-	intersecting the domains
-Using the sequential Remapper (what we’ve seen
-before):
+   intersecting the domains
+   Using the sequential Remapper (what we’ve seen
+   before):
 3. Locate intersecting cells (BBTree)
 4. Compute pairewise contributions
 5. Final computation of the distributed weight matrix
 
-example
-In C++ this time
+### Example
 
+In C++, this time
 
-Conclusion
-Conclusion
+```cpp
+InterpKernelDEC dec(boite_group, canal_group);
+		// Field transfer example
+		if (senderSide)      {
+			MEDCouplingFieldDouble *f = T.getOutputField("vitesse_sortie");
+			dec.attachLocalField(f);
+			dec.synchronize();
+			dec.sendData();
+		  }
+		else if (receiverSide) {
+	 	      MEDCouplingFieldDouble*f = T.getInputFieldTemplate("vitesse_entree");
+			dec.attachLocalField(f);
+	            dec.synchronize();
+			dec.recvData();
+			T.setInputField("vitesse_entree",dec->getField());
+		  }
+```
+
+# Conclusion
+
 Try it!
+- Any question ?
+- Let's go for the exercises!
+
+
