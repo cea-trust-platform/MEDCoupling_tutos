@@ -1,6 +1,11 @@
-# MEDLoader - Reading and writing MED Files
+---
+title: MEDLoader - Reading and writing MED Files
+author: Aymeric SONOLET, Guillaume BROOKING
+date: 08-03-2024
+...
 
-## Agenda
+
+# Agenda
 
 - Basic API
   - Quick export to VTU (visualization)
@@ -14,9 +19,9 @@
   - Families and groups
   - Profiles
 
-## Basic API
+# Basic API
 
-### Basic API - Overview
+## Basic API - Overview
 
 **Let’s keep it simple**
 
@@ -26,7 +31,7 @@
   - `m.writeVTK(“/tmp/foo.vtu”)`
   - Visualization with `ParaView`
 
-![alt text](pictures/2-medloader/image23.png)
+![alt text](../pictures/2-medloader/image23.png)
 
 - A step further -- the basic `MEDLoader` API:
 
@@ -43,7 +48,7 @@
     - `import medcoupling as mc`
     - `mc.WriteField(…)  # e.g. writing a field to a file`
 
-### Basic API - Example
+## Basic API - Example
 
 **Reading a multi-dimensional mesh**
 
@@ -62,9 +67,9 @@
   - The 3 meshes have 3 independent coordinate arrays
   - Could be _shared_ – see later slide on mesh dimension …
 
-## Overview
+# Overview
 
-### MEDLoader Overview (1/2)
+## MEDLoader Overview (1/2)
 
 **MEDLoader… not only a “loader”**
 
@@ -84,15 +89,15 @@
 - Like before, most of it in C++, but wrapped in Python
   - Most of the algorithms are actually pure MEDCoupling core
 
-### MEDLoader Overview (2/2)
+## MEDLoader Overview (2/2)
 
 **From a memory model to a file**
 
 - The tool to save / load what you do in memory with MEDCoupling
 
-![alt text](pictures/2-medloader/image32.png)
+![alt text](../pictures/2-medloader/image32.png)
 
-### MEDLoader Services
+## MEDLoader Services
 
 **A short tour**
 
@@ -101,7 +106,7 @@
   - Group : a collection of entities on the mesh (volumes, faces, points …)
   - Families : same idea, at a lower implementation level
 
-![alt text](pictures/2-medloader/image38.png)
+![alt text](../pictures/2-medloader/image38.png)
 
 - Geometric algorithms
   - convertAllToPoly()
@@ -115,9 +120,9 @@
 - MED file conversion tools
   - Between MED versions, from SAUV, etc …
 
-## Fundamental differences with MEDCoupling
+# Fundamental differences with MEDCoupling
 
-### Comparison with MEDCoupling
+## Comparison with MEDCoupling
 
 **Why do we have 2 data models?**
 
@@ -141,7 +146,7 @@
 
 - _Rule of thumb:_ try to do it with the `MEDCoupling` data model only (`MEDCouplingUMesh`, `MEDCouplingFieldDouble`, …) and look at the advanced stuff only if needed.
 
-### MED-file - Mesh Dimension
+## MED-file - Mesh Dimension
 
 **Up to 4 dimensions for a single mesh**
 
@@ -152,15 +157,15 @@
   - For example: `getGenMeshAtLevel(int)`
 
 - `levelRelativeToMax = 0` (volumes)
-  ![alt text](pictures/2-medloader/image39.png)
+  ![alt text](../pictures/2-medloader/image39.png)
 
 - `levelRelativeToMax = -1` (faces)
-  ![alt text](pictures/2-medloader/image40.png)
+  ![alt text](../pictures/2-medloader/image40.png)
 
 - `levelRelativeToMax = -2` (edges)
-  ![alt text](pictures/2-medloader/image41.png)
+  ![alt text](../pictures/2-medloader/image41.png)
 
-### Other things you should know
+## Other things you should know
 
 **Things to keep in mind when doing I/O**
 
@@ -182,9 +187,9 @@
     - Only one cell type
     - Can be converted back with `unPolyze()`
 
-## Advanced API
+# Advanced API
 
-### Advanced API - Introduction
+## Advanced API - Introduction
 
 **Use cases**
 
@@ -206,7 +211,7 @@
   - To be expected for a low level API!
   - Let’s take a look at the format:
 
-### Advanced API – MED-file format (1/2)
+## Advanced API – MED-file format (1/2)
 
 **What does a MED file look like?**
 
@@ -227,23 +232,23 @@
     - Author: Eric FAYOLLE (EdF R&D)
   - MED-file existed before MEDCoupling!
 
-![alt text](pictures/2-medloader/image53.png)
+![alt text](../pictures/2-medloader/image53.png)
 
-### Advanced API – MED-file format (2/2)
+## Advanced API – MED-file format (2/2)
 
-![alt text](pictures/2-medloader/image54.png)
+![alt text](../pictures/2-medloader/image54.png)
 
-### Advanced API – Class diagramm
+## Advanced API – Class diagramm
 
 **Helps navigate the advanced API**
 
 - All names prefixed with `%` actually start with `MEDFile` (e.g. `MEDFileData`)
 
-![alt text](pictures/2-medloader/image55.png)
+![alt text](../pictures/2-medloader/image55.png)
 
 - Highlight the links with the `MEDCoupling` data model
 
-### Advanced API – Important options
+## Advanced API – Important options
 
 **Writing a file**
 
@@ -260,7 +265,7 @@
   - Use  `loadArrays()`  or  `loadArraysIfNecessary()` to load data on demand
   - Use `unloadArrays()` or `unloadArraysWithoutDataLoss()` to free memory
 
-### Advanced API - Example
+## Advanced API - Example
 
 **Writing a multi-dimensional mesh**
 
@@ -286,7 +291,7 @@
   - Saving space and write/load time
   - Ensure consistency
 
-### Basic/Advanced API - Summary
+## Basic/Advanced API - Summary
 
 **Basic API is well suited for**
 
@@ -304,9 +309,9 @@
 
 - Note to C++ developpers: adanced API classes are also `RefCount`-ed (`incrRef()` / `decrRef()`)
 
-## Advanced Concepts
+# Advanced Concepts
 
-### Families and Groups
+## Families and Groups
 
 **How are groups defined ?**
 
@@ -320,23 +325,23 @@
   - `getGroups()`, `getFamilies()`, `getFamiliesArr()`
   - and many more...
 
-### Families and Groups - Illustration
+## Families and Groups - Illustration
 
 - Take a look at this example:
 
-![alt text](pictures/2-medloader/image79.png)
+![alt text](../pictures/2-medloader/image79.png)
 
-- Group A = Families 2 & 3 
+- Group A = Families 2 & 3
           = Cells 0,1,4
-  ![alt text](pictures/2-medloader/image77.png)
+  ![alt text](../pictures/2-medloader/image77.png)
 
-- Group B = Families 7 & 3 
+- Group B = Families 7 & 3
           = Cells 2,1
-  ![alt text](pictures/2-medloader/image78.png)
+  ![alt text](../pictures/2-medloader/image78.png)
 
 
 
-### Recording a Group
+## Recording a Group
 
 **Best explained with an example**
 
@@ -359,7 +364,7 @@
 - A group is simply seen as a list of cell IDs at the `MEDLoader` API level
 - Careful with cell indices! Remember that `MEDLoader` has to sort cell by types
 
-### Reading a Group
+## Reading a Group
 
 **Again, an example**
 
@@ -382,9 +387,9 @@
 
 Either get the result as a `DataArrayInt` or as a sub-mesh or as If you only need the identifiers of the sub-elements
 
-## Conclusion
+# Conclusion
 
-### Conclusion
+## Conclusion
 
 **Try it!**
 

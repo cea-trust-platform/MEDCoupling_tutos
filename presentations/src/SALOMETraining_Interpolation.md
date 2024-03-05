@@ -247,5 +247,3 @@ InterpKernelDEC dec(boite_group, canal_group);
 Try it!
 - Any question ?
 - Let's go for the exercises!
-
-

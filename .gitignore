@@ -7,3 +7,6 @@
 *.vtu
 *.med
 *.data
+*.swp
+presentations/build/
+presentations/install/

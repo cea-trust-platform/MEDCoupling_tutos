@@ -1,6 +1,11 @@
-# MEDCoupling Introduction and overview
+---
+title: MEDCoupling Introduction and overview
+author: Aymeric SONOLET, Guillaume BROOKING
+date: 08-03-2024
+...
 
-## Agenda
+
+# Agenda
 
 - Training overview & objectives
 - Introduction to the MED world
@@ -14,11 +19,11 @@
 - API changes in V8+
 - Notes for C++ developers
 
-## Training overview & objectives
+# Training overview & objectives
 
-### Training overview
+## Training overview
 
-#### Agenda
+### Agenda
 
 1. General introduction to the SALOME MED module
    - Exercises
@@ -27,15 +32,15 @@
 3. Interpolation: what MED do for you
    - Exercises
 
-#### Objectives
+### Objectives
 
 - Understand what MED offers
 - Discover the main concepts used in MED (meshes, fields, indexing techniques)
 - Be able to use via Python on simple (but representative!) use cases
 
-## Introduction to functionalities
+# Introduction to functionalities
 
-### MEDCoupling Introduction, Mesh, fields, … what for?
+## MEDCoupling Introduction, Mesh, fields, … what for?
 
 - Simulation studies require manipulations of
   - Mesh = spatial discretization of a geometric domain
@@ -54,7 +59,7 @@
   - In SMESH, the geometry is the starting point. No field.
   - MED acts more as an interface with the numerical code
 
-### MEDCoupling Functionalities, A short tour
+## MEDCoupling Functionalities, A short tour
 
 - Mesh manipulation
   - Build from scratch
@@ -70,7 +75,7 @@
     - ParaMEDMEM
 - Most of the functionalities accessible with Python
 
-### MEDCoupling Functionalities, And many more
+## MEDCoupling Functionalities, And many more
 
 - Convex hull computation
 - Duplicate nodes identification
@@ -84,7 +89,7 @@
 
 - What you need is not there yet? Ask for it!
 
-### What do we understand under MED in SALOME?
+## What do we understand under MED in SALOME?
 
 - Core structures (arrays, meshes and algorithms)
 - Projection (interpolation and field projection)
@@ -93,7 +98,7 @@
 - MEDReader, Paraview plugin to visualize MEDFiles
 - MED GUI (aka Fields)
 
-### History, an ongoing effort
+## History, an ongoing effort
 
 - 1996: study about the standardization of data exchange between EdF R&D simulation codes
 - 1997: first version of the data model
@@ -104,9 +109,9 @@
 - 2013: removing MEDMEM from SALOME 7
 - 2014: MEDCoupling/MEDLoader: engine behind the new MED reader in ParaView / PARAVIS
 
-## BASICS
+# BASICS
 
-### DataArrays (1/2)
+## DataArrays (1/2)
 
 - To do all this, surely, we need
   - Arrays of points (mesh nodes coordinates, centers of mass, …)
@@ -123,7 +128,7 @@
 - In Python, DataArray-s are manipulated very much like NumPy arrays
 - Important point for I/O: DataArray-s have a name, and so have their components
 
-### DataArrays (2/2)
+## DataArrays (2/2)
 
 - All standard operators directly accessible using operators:
   - `da = mc.DataArrayInt([1,2,3])`
@@ -146,7 +151,7 @@
       ... or to be invoked with another approach
     - No names associated to arrays/components
 
-### Renumbering, Easy index manipulation
+## Renumbering, Easy index manipulation
 
 - Powerful indexing methods – some examples
   - `da[[1,3,4]]` : gets the 2nd, 4th and 5th elements
@@ -165,7 +170,7 @@
   format of surj above.
 - See exercises for more on this and section Array Renumbering in the doc.
 
-### MESHES, Some geometry
+## MESHES, Some geometry
 
 - In the MED world, a mesh is
   - The spatial discretization of a continuous geometrical domain
@@ -183,7 +188,7 @@
 - A mesh is made of cells: segments  in 1D, surfaces  in 2D, volumes  in 3D.
 - Main types of mesh in MEDCoupling: structured, unstructured and extruded
 
-### Cell representation (unstructured)
+## Cell representation (unstructured)
 
 - A cell is described by the list of point identifiers (not point coordinates)
   delimiting it
@@ -201,13 +206,13 @@
 - The MED file documentation has them all
 - Note: in 2D, the reverse trigonometric convention is used
 
-### Connectivity representation, focus on a typical way to store indices
+## Connectivity representation, focus on a typical way to store indices
 
 - Internal representation of the cell connectivity
   - By no means mandatory to memorize(!)
   - Just gives a good example of the indirect index format
 
-### Fields, just an array of values?
+## Fields, just an array of values?
 
 - A field represents some physical quantity associated with the spatial domain
   - No continuous description of the physical quantity over the domain
@@ -227,12 +232,12 @@
   - Magnetic field: tensor field of double values: 3 components (Bx, By, Bz)
   - Temperature field: scalar field of double values: 1 component
 
-### Illustration
+## Illustration
 
 
-## Library and code Structure
+# Library and code Structure
 
-### Dependency Structure
+## Dependency Structure
 
 - Several sub-parts each dedicated to a specific task
   - MEDCoupling: memory model and general processing
@@ -245,7 +250,7 @@
   - System dependencies
 
 
-### A few words about the code
+## A few words about the code
 
 - Code
   - 138k+ lines of C++ code (35k+ for tests purposes)
@@ -261,9 +266,9 @@
   - Regular improvements and bug fixes
   - SGLS team at CEA, and Anthony GEAY (initial author) at EdF supporting the dev
 
-## Note for C++ developers
+# Note for C++ developers
 
-### Base classes
+## Base classes
 
 RefCountObject abstract class
 
