@@ -33,6 +33,8 @@ endif
 ifdef template_dir
 	cp -r ./$(template_dir)/* .
 endif
+	# creates dir if not already created
+	mkdir -p ../install
 	$(exec_opt) -o $@ $<
 	$(viewer) $@ &
 
