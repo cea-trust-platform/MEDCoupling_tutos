@@ -4,7 +4,6 @@ author: Aymeric SONOLET, Guillaume BROOKING
 date: 08-03-2024
 ...
 
-
 # Agenda
 
 - Training overview & objectives
@@ -159,6 +158,7 @@ date: 08-03-2024
 - Another classical indexing technique: array renumbering.
   You might want to re-organize an array according to a surjection (a mapping
   works too, obviously)
+
   ```python
   >>> da = mc.DataArrayInt([2,3,4,5,6])
   >>> surj = mc.DataArrayInt([0,2,4,1,4])
@@ -166,6 +166,7 @@ date: 08-03-2024
   [2,4,6,3,6]
   >>> result = da[surj]
   ```
+
 - The point: a lot of MEDCoupling functions work with (or return) arrays in the
   format of surj above.
 - See exercises for more on this and section Array Renumbering in the doc.
@@ -234,7 +235,6 @@ date: 08-03-2024
 
 ## Illustration
 
-
 # Library and code Structure
 
 ## Dependency Structure
@@ -248,7 +248,6 @@ date: 08-03-2024
   - Swigged
   - Swigged and wrapped with CORBA
   - System dependencies
-
 
 ## A few words about the code
 

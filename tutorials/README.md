@@ -9,6 +9,7 @@ Additional resource is [available online](https://docs.salome-platform.org/lates
 
 The `LD_LIBRARY_PATH` and the `PYTHONPATH` environment variables must be set correctly, in order to use the `MEDCoupling` library.
 Assuming that `MEDCoupling` has been installed at `<MC_INSTALL>/`:
+
 - `LD_LIBRARY_PATH=...:<MC_INSTALL>/lib`
 - `PYTHONPATH=...:<MC_INSTALL>/lib/<python?.??>/site-packages`
 

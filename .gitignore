@@ -10,3 +10,4 @@
 *.swp
 presentations/build/
 presentations/install/
+**/.~lock*

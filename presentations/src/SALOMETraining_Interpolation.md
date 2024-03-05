@@ -226,24 +226,25 @@ In C++, this time
 
 ```cpp
 InterpKernelDEC dec(boite_group, canal_group);
-		// Field transfer example
-		if (senderSide)      {
-			MEDCouplingFieldDouble *f = T.getOutputField("vitesse_sortie");
-			dec.attachLocalField(f);
-			dec.synchronize();
-			dec.sendData();
-		  }
-		else if (receiverSide) {
-	 	      MEDCouplingFieldDouble*f = T.getInputFieldTemplate("vitesse_entree");
-			dec.attachLocalField(f);
-	            dec.synchronize();
-			dec.recvData();
-			T.setInputField("vitesse_entree",dec->getField());
-		  }
+  // Field transfer example
+  if (senderSide)      {
+   MEDCouplingFieldDouble *f = T.getOutputField("vitesse_sortie");
+   dec.attachLocalField(f);
+   dec.synchronize();
+   dec.sendData();
+    }
+  else if (receiverSide) {
+         MEDCouplingFieldDouble*f = T.getInputFieldTemplate("vitesse_entree");
+   dec.attachLocalField(f);
+             dec.synchronize();
+   dec.recvData();
+   T.setInputField("vitesse_entree",dec->getField());
+    }
 ```
 
 # Conclusion
 
 Try it!
+
 - Any question ?
 - Let's go for the exercises!

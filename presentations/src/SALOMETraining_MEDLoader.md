@@ -4,7 +4,6 @@ author: Aymeric SONOLET, Guillaume BROOKING
 date: 08-03-2024
 ...
 
-
 # Agenda
 
 - Basic API
@@ -217,7 +216,7 @@ date: 08-03-2024
 
 - A specialization of the HDF5 standard
 
-  - Take a look at http://www.hdfgroup.org/HDF5/
+  - Take a look at <http://www.hdfgroup.org/HDF5/>
   - Focus on (potentially) big amount of data
   - Parallelism in mind
 
@@ -339,8 +338,6 @@ date: 08-03-2024
           = Cells 2,1
   ![alt text](../pictures/2-medloader/image78.png)
 
-
-
 ## Recording a Group
 
 **Best explained with an example**
@@ -369,7 +366,8 @@ date: 08-03-2024
 **Again, an example**
 
 - Reading a group
-  ```py
+
+  ```python
   fmeshU = mc.MEDFileUMesh(fname)
   gpNames  = fmeshU.getGroupsNames()
   # …
@@ -379,10 +377,10 @@ date: 08-03-2024
   print(myGroup)
   ```
 
-  ```
-  >>> Unstructured mesh with name : "groupe2"
-  >>> Description of mesh : "Maillage converti au format MED V3"
-  >>> ...
+  ```python
+  Unstructured mesh with name : "groupe2"
+  Description of mesh : "Maillage converti au format MED V3"
+  ...
   ```
 
 Either get the result as a `DataArrayInt` or as a sub-mesh or as If you only need the identifiers of the sub-elements

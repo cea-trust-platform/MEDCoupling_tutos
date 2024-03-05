@@ -12,7 +12,7 @@ several topics. Jupyter-lab should be used for `.ipynb` extension files.
 
 ### Git LFS
 
-This repository uses `git-lfs` to handle large files (mainly pictures). In order to clone this repository with git, be sure to have `git-lfs` installed on your computer. Additional information may be found [here](https://github.com/git-lfs/git-lfs?utm_source=gitlfs_site&utm_medium=installation_link&utm_campaign=gitlfs#installing). 
+This repository uses `git-lfs` to handle large files (mainly pictures). In order to clone this repository with git, be sure to have `git-lfs` installed on your computer. Additional information may be found [here](https://github.com/git-lfs/git-lfs?utm_source=gitlfs_site&utm_medium=installation_link&utm_campaign=gitlfs#installing).
 
 ## Set runtime environment
 
@@ -72,5 +72,3 @@ source venv/bin/activate
 pip install -r requirements-dev.txt
 pytest --nbval
 ```
-
-
