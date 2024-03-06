@@ -6,148 +6,42 @@ date: 08-03-2024
 
 # Agenda
 
+- Fundamental differences with MEDCoupling model
 - Basic API
   - Quick export to VTU (visualization)
   - Reading and writing a MED file
 - Overview of the MEDLoader
-- Fundamental differences with MEDCoupling model
 - Advanced API
   - Some insights into the MED file format
-  - Class diagramm
 - Advanced concepts
-  - Families and groups
+  - Groups
   - Profiles
-
-# Basic API
-
-## Basic API - Overview
-
-**Let’s keep it simple**
-
-- If you just a _need a quick look_ at what you’re doing:
-  - `VTK`/`VTU` export
-  - `m = <some mesh/field I just created>`
-  - `m.writeVTK(“/tmp/foo.vtu”)`
-  - Visualization with `ParaView`
-
-![alt text](../pictures/2-medloader/image23.png)
-
-- A step further -- the basic `MEDLoader` API:
-
-  - Directly reading/writing a mesh to a file on disk
-    - `WriteMesh()` / `ReadMesh()`
-  - Directly reading/writing a field
-    - `WriteField()` / `ReadField()`
-    - `WriteFieldUsingAlreadyWrittenMesh()` if you have several fields on a single mesh
-  - All dealing with MEDCoupling objects (e.g. MEDCouplingUMesh, etc …)
-
-- Main entry point: static methods at the MEDCoupling namespace level
-  - Only static methods (i.e. no internal state). File reopened each time!
-  - In Python, directly at the medcoupling level:
-    - `import medcoupling as mc`
-    - `mc.WriteField(…)  # e.g. writing a field to a file`
-
-## Basic API - Example
-
-**Reading a multi-dimensional mesh**
-
-- Take a look at this Python snippet
-
-  ```py
-  import medcoupling as mc
-  medFile = 'file.med'
-  meshName = ‘mesh‘
-  mesh3D = mc.ReadUMeshFromFile(medFile,meshName,0)
-  mesh2D = mc.ReadUMeshFromFile(medFile,meshName,-1)
-  mesh1D = mc.ReadUMeshFromFile(medFile,meshName,-2)
-  ```
-
-- Works fine, but:
-  - The 3 meshes have 3 independent coordinate arrays
-  - Could be _shared_ – see later slide on mesh dimension …
-
-# Overview
-
-## MEDLoader Overview (1/2)
-
-**MEDLoader… not only a “loader”**
-
-- Why do we need a loader/writer? Obviously:
-  - Communicate between processes / tools
-  - Load / backup results
-- Very unfortunate name (history, history …)
-  - Can obviously read, but also write meshes and fields …
-  - … into a file with the MED type (“.med” extension): “Modèle Echange de Données” (Data Exchange Model)
-- Part of the MEDCoupling library
-  - Requires MED-file library (currently version 3.0.8) to compile and run
-  - MED-file is the low level C/Fortran API to deal with MED files
-  - And hence, requires also HDF5 (prerequisite of MED-file library)
-  - (and MPI if you’re working in parallel)
-- You can use the core structures of MEDCoupling without MEDLoader
-  - the reverse does not work (and would not be very useful anyway!)
-- Like before, most of it in C++, but wrapped in Python
-  - Most of the algorithms are actually pure MEDCoupling core
-
-## MEDLoader Overview (2/2)
-
-**From a memory model to a file**
-
-- The tool to save / load what you do in memory with MEDCoupling
-
-![alt text](../pictures/2-medloader/image32.png)
-
-## MEDLoader Services
-
-**A short tour**
-
-- Read / write … obviously!
-- Families and groups manipulation
-  - Group : a collection of entities on the mesh (volumes, faces, points …)
-  - Families : same idea, at a lower implementation level
-
-![alt text](../pictures/2-medloader/image38.png)
-
-- Geometric algorithms
-  - convertAllToPoly()
-  - unPolyze()
-  - zipCoords()
-  - duplicateNodes()
-  - etc.
-- Those services often have a MEDCoupling equivalent
-  - But (see next), not dealing with the same model!
-  - For example: unPolyze() in MEDLoader takes care of groups, etc …
-- MED file conversion tools
-  - Between MED versions, from SAUV, etc …
 
 # Fundamental differences with MEDCoupling
 
 ## Comparison with MEDCoupling
 
-**Why do we have 2 data models?**
+### Why do we have 2 data models?
 
 - MEDCoupling tries to rationalize the large flexibility provided by the MED-file format
-
   - Target: covering 95% of the use cases
-
 - Loosing some advanced functionalities, but a _HUGE_ gain on _user-friendliness_!
 - Short list of "restrictions" -- in a MED-file, a _field_:
   - can have a partial support (defined only on a part of the mesh): “profiles“
-  - can have more than one spatial discretization (ON_CELLS, ON_NODES, …)
+  - can have more than one spatial discretization (ON_CELLS, ON_NODES, ...)
 - Also, a _mesh_:
-
   - **can have multiple dimensions** (see next slide)
   - groups (and families) are **not accessible** in `MEDCoupling` objects
-
 - A med-file field can have multiple time-steps (`MEDCouplingFieldDouble` = single step)
-
   - Solution: use multiple `MEDCouplingFieldDouble`
   - Solution: use `MEDCouplingFieldOverTime`
-
-- _Rule of thumb:_ try to do it with the `MEDCoupling` data model only (`MEDCouplingUMesh`, `MEDCouplingFieldDouble`, …) and look at the advanced stuff only if needed.
+- _Rule of thumb:_ try to do it with the `MEDCoupling` data model only
+  (`MEDCouplingUMesh`, `MEDCouplingFieldDouble`, …) and look at the advanced
+  stuff only if needed.
 
 ## MED-file - Mesh Dimension
 
-**Up to 4 dimensions for a single mesh**
+### Up to 4 dimensions for a single mesh
 
 - Better than words, a picture:
 
@@ -156,13 +50,13 @@ date: 08-03-2024
   - For example: `getGenMeshAtLevel(int)`
 
 - `levelRelativeToMax = 0` (volumes)
-  ![alt text](../pictures/2-medloader/image39.png)
+  ![](../pictures/2-medloader/image39.png){ width=25% }
 
 - `levelRelativeToMax = -1` (faces)
-  ![alt text](../pictures/2-medloader/image40.png)
+  ![](../pictures/2-medloader/image40.png){ width=25% }
 
 - `levelRelativeToMax = -2` (edges)
-  ![alt text](../pictures/2-medloader/image41.png)
+  ![](../pictures/2-medloader/image41.png){ width=25% }
 
 ## Other things you should know
 
@@ -185,6 +79,99 @@ date: 08-03-2024
     - `MEDCouplingUMesh::convertAllToPoly()`
     - Only one cell type
     - Can be converted back with `unPolyze()`
+
+# Basic API
+
+## Basic API - Overview
+
+### I need a quick look
+
+- `VTK`/`VTU` export
+
+  ```python
+  m = <some mesh/field I just created>
+  m.writeVTK("/tmp/foo.vtu")
+  ```
+
+- Visualization with `ParaView`
+
+![A vtu mesh](../pictures/2-medloader/image23.png){ width=25% }
+
+---
+
+### A step further -- the basic `MEDLoader` API
+
+- Directly reading/writing a mesh to a file on disk
+  - `WriteMesh()` / `ReadMesh()`
+- Directly reading/writing a field
+  - `WriteField()` / `ReadField()`
+  - `WriteFieldUsingAlreadyWrittenMesh()` if you have several fields on a single mesh
+- All dealing with MEDCoupling objects (e.g. MEDCouplingUMesh, etc …)
+- Only static methods (i.e. no internal state). File reopened each time!
+
+## Basic API - Example: Reading a multi-dimensional mesh
+
+- Take a look at this Python snippet
+
+  ```python
+  import medcoupling as mc
+  medFile = 'file.med'
+  meshName = 'mesh'
+  mesh3D = mc.ReadUMeshFromFile(medFile, meshName, 0)
+  mesh2D = mc.ReadUMeshFromFile(medFile, meshName, -1)
+  mesh1D = mc.ReadUMeshFromFile(medFile, meshName, -2)
+  ```
+
+- Works fine, but:
+  - The 3 meshes have 3 independent coordinate arrays
+  - Could be _shared_ – see later slide on mesh dimension …
+
+# Overview
+
+## MEDLoader Overview, not only a "loader"
+
+- Why do we need a loader/writer? Obviously:
+  - Communicate between processes / tools
+  - Load / backup results
+- Very unfortunate name (history, history …)
+  - Can obviously read, but also write meshes and fields …
+  - … into a file with the MED type (“.med” extension): “Modèle Echange de Données” (Data Exchange Model)
+- Part of the MEDCoupling library
+  - Requires MED-file library (currently version 3.0.8) to compile and run
+  - MED-file is the low level C/Fortran API to deal with MED files
+  - And hence, requires also HDF5 (prerequisite of MED-file library)
+  - (and MPI if you’re working in parallel)
+- You can use the core structures of MEDCoupling without MEDLoader
+  - the reverse does not work (and would not be very useful anyway!)
+- Like before, most of it in C++, but wrapped in Python
+  - Most of the algorithms are actually pure MEDCoupling core
+
+## MEDLoader Overview, from a memory model to a file
+
+- The tool to save / load what you do in memory with MEDCoupling
+
+![alt text](../pictures/2-medloader/image32.png)
+
+## MEDLoader Services
+
+- Read / write
+- Families and groups manipulation
+  - Group : a collection of entities on the mesh (volumes, faces, points …)
+  - Families : same idea, at a lower implementation level
+
+![alt text](../pictures/2-medloader/image38.png)
+
+- Geometric algorithms
+  - convertAllToPoly()
+  - unPolyze()
+  - zipCoords()
+  - duplicateNodes()
+  - etc.
+- Those services often have a MEDCoupling equivalent
+  - But (see next), not dealing with the same model!
+  - For example: unPolyze() in MEDLoader takes care of groups, etc …
+- MED file conversion tools
+  - Between MED versions, from SAUV, etc …
 
 # Advanced API
 

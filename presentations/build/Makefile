@@ -36,10 +36,10 @@ endif
 pres_1: ../install/$(prefix)SALOMETraining_MEDCoupling.$(format)
 
 .PHONY: pres_2
-pres_2: ../install/$(prefix)SALOMETraining_MEDLoader.$(format)
+pres_2: ../install/$(prefix)2_medfile_io.$(format)
 
 .PHONY: pres_3
-pres_3: ../install/$(prefix)SALOMETraining_Interpolation.$(format)
+pres_3: ../install/$(prefix)3_remapper.$(format)
 
 .PHONY: all
 all: pres_1 pres_2 pres_3
