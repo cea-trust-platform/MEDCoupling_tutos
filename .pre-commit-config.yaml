@@ -84,4 +84,4 @@ repos:
       rev: v0.39.0
       hooks:
           - id: markdownlint-fix
-            args: [--disable=MD036, --disable=MD025, --disable=MD013, --disable=MD041, --disable=MD024]
+            args: [--disable=MD036, --disable=MD025, --disable=MD013, --disable=MD041, --disable=MD024, --disable=MD035, --disable=MD045]
