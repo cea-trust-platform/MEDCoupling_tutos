@@ -33,7 +33,7 @@ endif
 	$(exec_opt) -o $@ $<
 
 .PHONY: pres_1
-pres_1: ../install/$(prefix)SALOMETraining_MEDCoupling.$(format)
+pres_1: ../install/$(prefix)1_medcoupling.$(format)
 
 .PHONY: pres_2
 pres_2: ../install/$(prefix)2_medfile_io.$(format)
@@ -41,8 +41,11 @@ pres_2: ../install/$(prefix)2_medfile_io.$(format)
 .PHONY: pres_3
 pres_3: ../install/$(prefix)3_remapper.$(format)
 
+.PHONY: pres_4
+pres_3: ../install/$(prefix)4_parallel.$(format)
+
 .PHONY: all
-all: pres_1 pres_2 pres_3
+all: pres_1 pres_2 pres_3 pres_4
 
 clean:
 	-rm ../install/*pdf
