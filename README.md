@@ -4,9 +4,17 @@ This git repository contains python tutorials and scripts illustrating the use
 of the MEDCoupling library.
 
 You can find in the "tutorials" folder some tutorials and explanations for
-several topics. Jupyter-lab should be used for ipynb extension files.
+several topics. Jupyter-lab should be used for `.ipynb` extension files.
 
-# Set runtime environment
+# Using tutorials
+
+## Installation
+
+### Git LFS
+
+This repository uses `git-lfs` to handle large files (mainly pictures). In order to clone this repository with git, be sure to have `git-lfs` installed on your computer. Additional information may be found [here](https://github.com/git-lfs/git-lfs?utm_source=gitlfs_site&utm_medium=installation_link&utm_campaign=gitlfs#installing).
+
+## Set runtime environment
 
 Working in a MEDCoupling environment is required. For that, you should do the
 following:
@@ -46,19 +54,21 @@ following:
   pip install -r requirements.txt
   ```
 
-# Check environnement and all notebooks
+## Run a tutorial
 
-To check all notebooks are running after initializing the environment please run:
+- Activate the MEDCoupling environment
+- `cd tutorials`
+- Launch `jupyter-notebook` or `jupyter-lab`
+- Enjoy MEDCoupling !
+
+# Contributing
+
+## Check environnement and all notebooks
+
+To check all notebooks are running correctly, after having initialized the environment, please run:
 
 ```bash
 source venv/bin/activate
 pip install -r requirements-dev.txt
 pytest --nbval
 ```
-
-# Run a tutorial
-
-- Activate the MEDCoupling environment
-- `cd tutorials`
-- Launch `jupyter-notebook` or `jupyter-lab`
-- Enjoy MEDCoupling !

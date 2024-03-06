@@ -80,3 +80,8 @@ repos:
           - id: rst-backticks
           - id: rst-directive-colons
           - id: rst-inline-touching-normal
+    - repo: https://github.com/igorshubovych/markdownlint-cli
+      rev: v0.39.0
+      hooks:
+          - id: markdownlint-fix
+            args: [--disable=MD036, --disable=MD025, --disable=MD013, --disable=MD041, --disable=MD024]

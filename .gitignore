@@ -7,3 +7,8 @@
 *.vtu
 *.med
 *.data
+*.swp
+presentations/build/*
+!presentations/build/Makefile
+presentations/install/
+**/.~lock*

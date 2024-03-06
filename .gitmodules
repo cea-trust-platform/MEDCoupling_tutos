@@ -1,0 +1,4 @@
+[submodule "presentations/templates/slidesCEA2023"]
+	path = presentations/templates/slidesCEA2023
+	url = ssh://gitolite@ssh-codev-tuleap.intra.cea.fr:2044/latex-dm2s/slidesCEA2023.git
+	branch = ast/pandoc
