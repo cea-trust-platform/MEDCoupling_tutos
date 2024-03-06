@@ -2,8 +2,6 @@ TO = beamer
 # pdf html js
 
 exec = pandoc
-pdf_reader = zathura
-navigator = firefox
 opt_common = -s -N # --embed-resources
 
 ifeq ($(TO),beamer)
@@ -11,21 +9,18 @@ format = pdf
 opt_beamer = --slide-level=2 -t beamer -V theme=CEA2023
 exec_opt = $(exec) $(opt_common) $(filename) $(opt_beamer)
 prefix = pres_
-viewer = $(pdf_reader)
 template_dir = ../templates/slidesCEA2023
 
 else ifeq ($(TO),pdf)
 format = pdf
 exec_opt = $(exec) $(opt_common) $(filename)
 prefix =
-viewer = $(pdf_reader)
 
 else ifeq ($(TO),js)
 format = html
 opt_js = -t revealjs --css=../templates/revealjs-CEA/dist/theme/CEA.css -V revealjs-url=../templates/revealjs-CEA --embed-resources
 exec_opt = $(exec) $(opt_common) $(filename) $(opt_js)
 prefix = pres_
-viewer = $(navigator)
 
 endif
 
@@ -36,7 +31,6 @@ endif
 	# creates dir if not already created
 	mkdir -p ../install
 	$(exec_opt) -o $@ $<
-	$(viewer) $@ &
 
 .PHONY: pres_1
 pres_1: ../install/$(prefix)SALOMETraining_MEDCoupling.$(format)
