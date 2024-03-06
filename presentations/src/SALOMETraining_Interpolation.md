@@ -163,22 +163,22 @@ Supported configurations
 What you can do
 
 Mesh combination (U: unstructured, C: cartesian, E: extruded)
-U  U
-U  C
-C  U
-C  C
-E  E
+U - U
+U - C
+C - U
+C - C
+E - E
 Dimensions
 1D
 2D curve, full 2D
 3D surface, full 3D
 Spatial discretization
-P0  P0
-P1  P0
-P0  P1
-P1  P1
-P1  P0Bary
-PG  PG
+P0 - P0
+P1 - P0
+P0 - P1
+P1 - P1
+P1 - P0Bary
+PG - PG
 
 Parallelism
 Parallel Interpolation
