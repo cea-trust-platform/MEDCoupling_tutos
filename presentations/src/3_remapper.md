@@ -12,13 +12,13 @@ Spatial discretization and nature of a field
 
 What MEDCoupling can do for you
 
-Parallelism in MEDCoupling
-
 # Interpolation, extrapolation or projection?
 
 ## Illustration
 
-Code coupling
+ Code A                                                    Code B
+-------------------------------------------------------   ----------------
+![](../pictures/3-interpolation-parallelism/image8.png)   ![](../pictures/3-interpolation-parallelism/image9.png)
 
 ## Introduction: A typical use case: code coupling
 
@@ -63,10 +63,10 @@ Code coupling
   ```python
   import medcoupling as mc
   remap = mc.MEDCouplingRemapper()
-  remap.setPrecision(1.e-12)                     # setting general options
-  remap.prepare(srcMesh,trgMesh,”P0P0”)          # cells to cells
-  srcField.setNature(mc.IntensiveConservation)  # nature of the field – see next...
-  trgField = remap.transferField(srcField,1e+300)  # default value to 1e+300
+  remap.setPrecision(1.e-12)
+  remap.prepare(srcMesh,trgMesh,”P0P0”)  # cells to cells
+  srcField.setNature(mc.IntensiveConservation)  # field nature
+  trgField = remap.transferField(srcField,1e+300)
   ```
 
 - `srcField` is a `MEDCouplingFieldDouble`
@@ -130,7 +130,7 @@ Example of non-overlapping mesh
 
 # Functionalities
 
-## Projection Methods
+## Projection Methods (1/2)
 
 ### General principle
 
@@ -148,22 +148,24 @@ To project one field onto a new target mesh, one has to:
    API: transfer(srcField, tgtField, defaultValue)
    Default value covers non-overlapping cases
 
+## Projection Methods (2/2)
+
 ### Supported configurations
 
 - Mesh combination (U: unstructured, C: cartesian, E: extruded)
-  U - U
-  U - C
-  C - U
-  C - C
-  E - E
+  - U - U
+  - U - C
+  - C - U
+  - C - C
+  - E - E
 - Dimensions
-  1D
-  2D curve, full 2D
-  3D surface, full 3D
+  - 1D
+  - 2D curve, full 2D
+  - 3D surface, full 3D
 - Spatial discretization
-  P0 - P0
-  P1 - P0
-  P0 - P1
-  P1 - P1
-  P1 - P0Bary
-  PG - PG
+  - P0 - P0
+  - P1 - P0
+  - P0 - P1
+  - P1 - P1
+  - P1 - P0Bary
+  - PG - PG
