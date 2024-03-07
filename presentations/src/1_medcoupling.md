@@ -4,77 +4,80 @@ author: Aymeric SONOLET, Guillaume BROOKING
 date: 08-03-2024
 ...
 
-# Agenda
-
-- Training overview & objectives
-- Introduction to the MED world
-- Functionalities
-- Basic concepts
-- DataArrays
-- Meshes
-- Fields
-- Library and code structure
-- Some practical details for the exercises
-- API changes in V8+
-- Notes for C++ developers
-
 # Training overview & objectives
 
-## Training overview
+## Agenda
 
-### Agenda
+- Overview of MEDCoupling
 
-1. General introduction to the SALOME MED module
-   - Exercises
-2. MEDLoader: reading and writing MED files
-   - Exercises
-3. Interpolation: what MED do for you
-   - Exercises
+- Notebooks `1` and `2` about `DataArray`, `Mesh` and `Field`
 
-### Objectives
+- Presentation of `MEDLoader`
 
-- Understand what MED offers
-- Discover the main concepts used in MED (meshes, fields, indexing techniques)
-- Be able to use via Python on simple (but representative!) use cases
+- Notebooks `3`, `4`, and `5` about `MEDLoader`
 
-# Introduction to functionalities
+- Presentation of `Remapper`
 
-## MEDCoupling Introduction, Mesh, fields, … what for?
+- Notebook `6` about `Remapper`
 
-- Simulation studies require manipulations of
-  - Mesh = spatial discretization of a geometric domain
-  - Fields = physical data / boundary conditions on the above discretization
-  - They often form the main input of a numerical solver
-    - And can be used to store the simulation results too
-- Building, accessing and interacting with these elements demands suited tools
-- Many possible routes
-  - Ad-hoc libraries : still often the case in dedicated codes
-    - Problem: interaction with the rest of the world (other codes, post-processing tools, etc …)
-  - SALOME’s philosophy: common building block
-    - A shared tool to work on meshes and fields
-    - But MEDCoupling is much more than just a way to standardize interaction!!
-- A powerful library to perform all this: MEDCoupling
-- Difference with SMESH??
-  - In SMESH, the geometry is the starting point. No field.
-  - MED acts more as an interface with the numerical code
+- Notebooks of `ExempleComplet/`
 
-## MEDCoupling Functionalities, A short tour
+## Objectives
 
-- Mesh manipulation
+- Get an overview of the library features
+
+- Understand of main objects: `DataArray`, `Mesh`, `Field`
+
+- Master simple and representative cases
+
+# Features
+
+## Mesh and Fields
+
+A typical scientific simulation requires:
+
+  - **Meshes**, spatial discretization of a geometric domain
+
+  - **Fields**, physical data on mesh entities
+
+main input/output of a numerical solver:
+_(spatial descr., initial conditions, boundary conditions, etc.)_
+
+**Creating or modifying meshes and fields is difficult**
+
+## Why using MEDCoupling ?
+
+### Custom Meshes and Fields for each code
+  - well suited
+  - hard to develop
+  - hard to interact with other codes and tools (e.g. post-processing)
+
+### Using MEDCoupling in several codes
+  - may have limitations
+  - inherit from all MEDCoupling features
+  - share development effort
+  - easy to interact with other codes and tools
+
+### Differences with SMESH
+  - field manipulation
+  - highly scriptable creation of simple meshes
+  - an **interface** between simulation codes and tools
+
+## MEDCoupling Features
+
+- Mesh
   - Build from scratch
-  - Refinement & sub-splitting
-  - Intersection (some spatial configurations only!)
+  - Refine and split
+  - Intersect
 - Fields
   - Projection from one mesh to another
-  - Taking into account physical nature of the field
-- Parallel codes – for field projection mainly
-  - Work splitting between groups of processors
-    - MEDPartitioner
-  - Serialization, data exchange and projection between groups of procs
-    - ParaMEDMEM
-- Most of the functionalities accessible with Python
+  - Projection taking into account physical nature of the field
+  - Parallel projections
+- Almost everything available in **Python**
 
-## MEDCoupling Functionalities, And many more
+![](../pictures/1-general-presentation/image8.png){ width=40% }
+
+## Misc. features
 
 - Convex hull computation
 - Duplicate nodes identification
@@ -86,9 +89,9 @@ date: 08-03-2024
 - Gauss points management
 - And many more
 
-- What you need is not there yet? Ask for it!
+## What does `MED` means ?
 
-## What do we understand under MED in SALOME?
+### **Modèle d'Échange de Données**
 
 - Core structures (arrays, meshes and algorithms)
 - Projection (interpolation and field projection)
@@ -97,18 +100,23 @@ date: 08-03-2024
 - MEDReader, Paraview plugin to visualize MEDFiles
 - MED GUI (aka Fields)
 
-## History, an ongoing effort
+## Historical context
 
-- 1996: study about the standardization of data exchange between EdF R&D simulation codes
-- 1997: first version of the data model
-- 1998-1999: first version of the MED-file library at EdF and joint work with CEA (ELAN)
-- 2001: including MED into the SALOME platform for data exchange (meshes and fields)
-- 2003: first version of MED in memory (MEDMEM): exchanging objects between processes directly in memory
-- 2010: first version of MEDCoupling
-- 2013: removing MEDMEM from SALOME 7
-- 2014: MEDCoupling/MEDLoader: engine behind the new MED reader in ParaView / PARAVIS
+### 1996
 
-# BASICS
+ÉdF R&D, data exchange between simulation codes standardization effort
+
+### 2001
+
+`MED-file` library (ÉdF/CEA), for data exchange, integrated to the SALOME platform
+
+### 2010
+
+First version of MEDCoupling
+
+**Almost 15 years of development**
+
+# Fundamental Objects
 
 ## DataArrays (1/2)
 
@@ -152,26 +160,14 @@ date: 08-03-2024
 
 ## Renumbering, Easy index manipulation
 
-- Powerful indexing methods – some examples
-  - `da[[1,3,4]]` : gets the 2nd, 4th and 5th elements
-  - `da[:, 0]`  : extract the first component of all tuples
-- Another classical indexing technique: array renumbering.
-  You might want to re-organize an array according to a surjection (a mapping
-  works too, obviously)
+- indexing methods like `numpy`:
+  - `da[:, 0]`  : extract the first component of all tuples (i.e. first column of the array)
+  - `da[[1,0,2]]` : reorganize the array
 
-  ```python
-  >>> da = mc.DataArrayInt([2,3,4,5,6])
-  >>> surj = mc.DataArrayInt([0,2,4,1,4])
-  >>> surj
-  [2,4,6,3,6]
-  >>> result = da[surj]
-  ```
+- Many MEDCoupling functions work with (or return) arrays in the format above.
+- See `Array Renumbering` section of the documentation.
 
-- The point: a lot of MEDCoupling functions work with (or return) arrays in the
-  format of surj above.
-- See exercises for more on this and section Array Renumbering in the doc.
-
-## MESHES, Some geometry
+## Meshes
 
 - In the MED world, a mesh is
   - The spatial discretization of a continuous geometrical domain
@@ -189,33 +185,48 @@ date: 08-03-2024
 - A mesh is made of cells: segments  in 1D, surfaces  in 2D, volumes  in 3D.
 - Main types of mesh in MEDCoupling: structured, unstructured and extruded
 
-## Cell representation (unstructured)
+## Cell representation (unsctructured meshes)
 
-- A cell is described by the list of point identifiers (not point coordinates)
-  delimiting it
-  - [0,1,2,3,4,5,6,7]
-  - “cell” is somewhat of a misnomer – can be a segment in 1D
-- Need conventions!
-  - E.g., more than one way to index a cube’s vertices:
-- No explicit notion of “edges” for a 2D cell, no notion of “faces” for a 3D volume
-  - Only points
-  - But you can re-compute this if needed: buildDescendingConnectivity()
-- You will see those code names
-  - HEXA8, HEXA20: e.g. hexahedron with 8 points = a “cube” really. The one with 20 points represent a “quadratic” element (“cube with curved faces”).
-  - TETRA4, TETRA10
-  - Etc …
-- The MED file documentation has them all
-- Note: in 2D, the reverse trigonometric convention is used
 
-## Connectivity representation, focus on a typical way to store indices
+- A cell is described by the list of its **nodes' indices** (not coordinates)
+  - e.g. `[0, 1, 2, 3, 4, 5, 6, 7]`
+  - "cell" can be a segment in 1D
+- Need for convention: there is more than one way to index a cube's vertices:
+- No explicit notion of "edges" (resp. "faces") for a 2D (resp. 3D) cell
+- Only points. Other entities can be computed on the spot, with `buildDescendingConnectivity()`
 
-- Internal representation of the cell connectivity
-  - By no means mandatory to memorize(!)
-  - Just gives a good example of the indirect index format
+![](../pictures/1-general-presentation/image10.png){ width=40% }
 
-## Fields, just an array of values?
+## About cells
 
-- A field represents some physical quantity associated with the spatial domain
+### Label of cell types
+
+- `HEXA8`: a hexahedron with 8 ponts (i.e. a linear cube)
+- `HEXA20`: g. hexahedron with 20 points points (can represent a "quadratic" element, a "cube with curved faces").
+- `TETRA4`, `TETRA10`, etc.
+
+See the `MED-file` documentation, for more information.
+
+### Numbering order
+
+- In 2D, reverse trigonometric convention is used
+
+![](../pictures/1-general-presentation/image11.png){ width=40% }
+![](../pictures/1-general-presentation/image12.png){ width=40% }
+
+## Indirect indexing, a typical way to store indices
+
+### Indirect indexing format
+
+![](../pictures/1-general-presentation/image21.png){ width=100% }
+
+Notably, used for representation of cells' connectivity
+
+## Fields, more than an array of values
+
+![](../pictures/1-general-presentation/image8.png){ width=10% }
+
+- represents some physical quantity associated with a spatial domain
   - No continuous description of the physical quantity over the domain
   - A finite set of values, associated to some constituents of the mesh
   - At a low level, a DataArray associated to a given mesh
@@ -235,9 +246,20 @@ date: 08-03-2024
 
 ## Illustration
 
+- Unstructured 2D mesh, of `QUAD4` and `TRI3`
+- The cell `2` has the connectivity `[3, 4, 7, 6]` (clockwise)
+
+![](../pictures/1-general-presentation/image22.png){ width=30% }
+
+- A P0 (i.e. `ON_CELLS` field on this mesh), with 5 values
+
+![](../pictures/1-general-presentation/image23.png){ width=30% }
+
 # Library and code Structure
 
 ## Dependency Structure
+
+![](../pictures/1-general-presentation/image24.png){ width=30% }
 
 - Several sub-parts each dedicated to a specific task
   - MEDCoupling: memory model and general processing
@@ -249,27 +271,24 @@ date: 08-03-2024
   - Swigged and wrapped with CORBA
   - System dependencies
 
-## A few words about the code
+# Appendix
 
-- Code
-  - 138k+ lines of C++ code (35k+ for tests purposes)
-  - 41k+ lines of Python (35k+ for test purposes)
-  - More than 1600 unit tests
-  - Valgrind 0 on all unit tests
-  - More than 80% test coverage
-  - Everything in C++ with a thin layer of Python to wrap it
-- Source control via Git
-- Configuration and build with CMake
-  - Help with portability (compiling on Win64 for example)
-- A very dynamic library
-  - Regular improvements and bug fixes
-  - SGLS team at CEA, and Anthony GEAY (initial author) at EdF supporting the dev
+## Note for C++ developers
 
-# Note for C++ developers
+### A few words about the code
+
+- source code
+  - 150k lines of C++
+  - 40k lines of Python
+- tests
+  - ~1600 unit tests
+  - memory leak check for each unit tests (`valgrind`)
+- build
+  - `cmake`
 
 ## Base classes
 
-RefCountObject abstract class
+`RefCountObject` abstract class
 
 - Similarities with VTK code structure
   - Ease the interaction with VTK (ParaView plugins)
