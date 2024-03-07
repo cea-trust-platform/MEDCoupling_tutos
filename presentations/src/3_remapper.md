@@ -116,7 +116,6 @@ What MEDCoupling can do for you
 - See detailed formula in the documentation
 
    /              Intensive                   Extensive
-
 -------------   -------------------------   --------------------------
 Conservation     `IntensiveConservation`     `ExtensiveConservation`
 Maximum          `IntensiveMaximum`          `ExtensiveMaximum`
