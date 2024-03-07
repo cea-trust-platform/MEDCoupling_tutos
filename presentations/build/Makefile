@@ -42,7 +42,7 @@ pres_2: ../install/$(prefix)2_medfile_io.$(format)
 pres_3: ../install/$(prefix)3_remapper.$(format)
 
 .PHONY: pres_4
-pres_3: ../install/$(prefix)4_parallel.$(format)
+pres_4: ../install/$(prefix)4_parallel.$(format)
 
 .PHONY: all
 all: pres_1 pres_2 pres_3 pres_4
