@@ -12,5 +12,5 @@
     - Fusion/exclusion MEDFiles
 3. Remapper
    Exercice thématique (Aymeric)
-4. Ajitateur (Aymeric)
+4. Agitateur (Aymeric)
 5. Parallèle (Guillaume)
